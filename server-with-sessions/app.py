@@ -1,9 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from models import db, Note, NoteSchema, User, UserSchema
 
 app = Flask(__name__)
 app.secret_key = "super-secret-key"
@@ -31,12 +29,9 @@ class Login(Resource):
 
 class ViewNotes(Resource):
     def get(self):
-        notes = Note.query.first()
-
-        return {"message": "getting all the notes"}, 200
-
-from models import Note, NoteSchema, User, UserSchema
-
+        
+        return{"message": "getting the notes"}, 200
+    
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
 api.add_resource(ViewNotes, "/notes")

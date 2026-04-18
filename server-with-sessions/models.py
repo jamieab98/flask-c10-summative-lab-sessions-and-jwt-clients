@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import Schema, fields
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+
+db = SQLAlchemy()
 
 class Note(db.Model):
     __tablename__ = "notes"
