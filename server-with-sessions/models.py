@@ -35,12 +35,15 @@ class User(db.Model):
     
     def authenticate(self, password):
         return check_password_hash(self._password_hash, password)
+    
+    def __repr__(self):
+        return f'{self.id}, {self.username}'
 
 class UserSchema(Schema):
     id = fields.Int()
     username = fields.Str()
 
-    notes = fields.List(fields.Nested(lambda: NoteSchema(exclude=("user_id"))))
+    notes = fields.List(fields.Nested(lambda: NoteSchema(exclude=["user_id"])))
 
 class NoteSchema(Schema):
     id = fields.Int()

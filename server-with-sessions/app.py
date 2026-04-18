@@ -30,7 +30,11 @@ class Login(Resource):
 class ViewUsers(Resource):
     def get(self):
         users = User.query.all()
-        print(users)
+        #for user in users:
+        #    print(user)
+        schema = UserSchema(many=True)
+        return schema.dump(users), 200
+        return {"message": "getting users"}
     
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
