@@ -32,10 +32,23 @@ class ViewUsers(Resource):
         users = User.query.all()
         schema = UserSchema(many=True)
         return schema.dump(users), 200
+
+class ViewUser(Resource):
+    def get(self, id):
+        user = User.query.filter_by(id=id).first()
+        return UserSchema().dump(user), 200
+
+class ViewNotes(Resource):
+    def get(self):
+        notes = Note.query.all()
+        schema = NoteSchema(many=True)
+        return schema.dump(notes), 200
     
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
 api.add_resource(ViewUsers, "/users")
+api.add_resource(ViewUser, "/users/<int:id>")
+api.add_resource(ViewNotes, "/notes")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
