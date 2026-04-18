@@ -27,14 +27,14 @@ class Login(Resource):
 
         return {"username": username, "password": password}, 200
 
-class ViewNotes(Resource):
+class ViewUsers(Resource):
     def get(self):
-        
-        return{"message": "getting the notes"}, 200
+        users = User.query.all()
+        print(users)
     
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
-api.add_resource(ViewNotes, "/notes")
+api.add_resource(ViewUsers, "/users")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
