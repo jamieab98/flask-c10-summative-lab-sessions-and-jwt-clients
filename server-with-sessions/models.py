@@ -40,7 +40,7 @@ class UserSchema(Schema):
     id = fields.Int()
     username = fields.Str()
 
-    notes = fields.List(fields.Nested(lambda: NotesSchema(exclude=("user_id"))))
+    notes = fields.List(fields.Nested(lambda: NoteSchema(exclude=("user_id"))))
 
 class NoteSchema(Schema):
     id = fields.Int()
