@@ -28,14 +28,14 @@ class Login(Resource):
         password = request.get_json().get('password')
 
         return {"username": username, "password": password}, 200
-    
-from models import Note, NoteSchema, User, UserSchema
 
 class ViewNotes(Resource):
     def get(self):
         notes = Note.query.first()
 
         return {"message": "getting all the notes"}, 200
+
+from models import Note, NoteSchema, User, UserSchema
 
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
