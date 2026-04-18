@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_restful import Resource, Api
 from flask_migrate import Migrate
 from models import db, Note, NoteSchema, User, UserSchema
@@ -21,11 +21,17 @@ class HomePage(Resource):
 
 class Login(Resource):
     def post(self):
-        
         username = request.get_json().get('username')
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            raise ValueError("User does not exist")
+        
         password = request.get_json().get('password')
-
-        return {"username": username, "password": password}, 200
+        if not user.authenticate(password):
+            raise ValueError("incorrect password")
+        
+        session['user_id'] = user.id
+        return {'message': 'successful login'}, 200
 
 class ViewUsers(Resource):
     def get(self):

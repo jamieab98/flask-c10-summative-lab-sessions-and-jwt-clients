@@ -36,8 +36,8 @@ class User(db.Model):
     def authenticate(self, password):
         return check_password_hash(self._password_hash, password)
     
-    def __repr__(self):
-        return f'{self.id}, {self.username}'
+    #def __repr__(self):
+    #    return f'{self.username}'
 
 class UserSchema(Schema):
     id = fields.Int()
