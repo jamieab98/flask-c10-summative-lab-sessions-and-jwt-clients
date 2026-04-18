@@ -46,9 +46,14 @@ class ViewUser(Resource):
 
 class ViewNotes(Resource):
     def get(self):
+        #user = User.query.filter_by(id=session.get('user_id')).first()
+        #if not user:
+        #    raise ValueError("Must be logged in to view notes")
+        
         notes = Note.query.all()
-        schema = NoteSchema(many=True)
-        return schema.dump(notes), 200
+        notes_data = NoteSchema(many=True).dump(notes)
+        
+        return notes_data, 200
 
 class CheckSession(Resource):
     def get(self):
