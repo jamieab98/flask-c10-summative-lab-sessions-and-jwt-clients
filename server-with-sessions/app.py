@@ -64,6 +64,28 @@ class Logout(Resource):
         session['user_id'] = None
         return {'message': 'Logging out'}, 200
 
+class Signup(Resource):
+    def post(self):
+        data = request.get_json()
+        usernames = [user.username for user in User.query.all()]
+        username = data.get('username')
+        if username in usernames:
+            raise ValueError("username must be unique")
+        
+        password = data.get('password')
+        password_conformation = data.get('password_confirmation')
+        if password != password_conformation:
+            raise ValueError("passwords must match")
+        
+        user = User(username=username)
+        user.password_hash = password
+
+        db.session.add(user)
+        db.session.commit()
+        session['user_id'] = user.id
+
+        return UserSchema().dump(user), 200      
+
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
 api.add_resource(ViewUsers, "/users")
@@ -71,6 +93,7 @@ api.add_resource(ViewUser, "/users/<int:id>")
 api.add_resource(ViewNotes, "/notes")
 api.add_resource(CheckSession, "/check_session")
 api.add_resource(Logout, "/logout")
+api.add_resource(Signup, "/signup")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
