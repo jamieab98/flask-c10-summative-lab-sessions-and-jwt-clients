@@ -52,9 +52,17 @@ class ViewNotes(Resource):
 
 class CheckSession(Resource):
     def get(self):
-        user_id = session['user_id']
-        user = User.query.filter_by(id=user_id).first()
+        user_id = session.get('user_id')
+        if not user_id:
+            return{}, 204
+        
+        user = User.query.filter_by(id=user_id)
         return UserSchema().dump(user), 200
+
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return {'message': 'Logging out'}, 200
 
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
@@ -62,6 +70,7 @@ api.add_resource(ViewUsers, "/users")
 api.add_resource(ViewUser, "/users/<int:id>")
 api.add_resource(ViewNotes, "/notes")
 api.add_resource(CheckSession, "/check_session")
+api.add_resource(Logout, "/logout")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
