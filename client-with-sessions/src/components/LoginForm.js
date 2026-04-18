@@ -22,6 +22,7 @@ function LoginForm({ onLogin }) {
         r.json().then((user) => onLogin(user));
       } else {
         r.json().then((err) => setErrors(err.errors));
+        console.log('there was an error')
       }
     });
   }
