@@ -35,3 +35,16 @@ class User(db.Model):
     
     def authenticate(self, password):
         return check_password_hash(self._password_hash, password)
+
+class UserSchema(Schema):
+    id = fields.Int()
+    username = fields.Str()
+
+    notes = fields.List(fields.Nested(lambda: NotesSchema(exclue=("user_id"))))
+
+class NoteSchema(Schema):
+    id = fields.Int()
+    title = fields.Str()
+    content = fields.Str()
+
+    user_id = fields.Nested(UserSchema(exclude=("notes",)))
