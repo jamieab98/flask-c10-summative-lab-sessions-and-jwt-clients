@@ -83,11 +83,16 @@ class Signup(Resource):
 class NewPost(Resource):
     def post(self):
         user_id = session.get('user_id')
+        if not user_id:
+            return {'message': 'must be logged in to create a new message'}
         data = request.get_json()
         
-        print(data)
-        print(user_id)
-        return {}
+        newNote = Note(title=data['title'], content=data['content'], user_id=user_id)
+        
+        db.session.add(newNote)
+        db.session.commit()
+
+        return NoteSchema().dump(newNote), 201
 
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")

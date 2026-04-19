@@ -12,7 +12,7 @@ function NavBar({ user, setUser }) {
     });
   }
 
-  function handleDoSomethingClick() {
+  /*function handleDoSomethingClick() {
     fetch("/newpost",{
       method: "POST",
       credentials: "include",
@@ -32,6 +32,8 @@ function NavBar({ user, setUser }) {
       console.log("Error:", error)
     })
   }
+  */
+ 
 
   return (
     <Wrapper>
