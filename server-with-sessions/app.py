@@ -82,6 +82,11 @@ class Signup(Resource):
 
 class NewPost(Resource):
     def post(self):
+        user_id = session.get('user_id')
+        data = request.get_json()
+        
+        print(data)
+        print(user_id)
         return {}
 
 api.add_resource(HomePage, "/")
@@ -91,6 +96,7 @@ api.add_resource(ViewUser, "/users/<int:id>")
 api.add_resource(CheckSession, "/check_session")
 api.add_resource(Logout, "/logout")
 api.add_resource(Signup, "/signup")
+api.add_resource(NewPost, "/newpost")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

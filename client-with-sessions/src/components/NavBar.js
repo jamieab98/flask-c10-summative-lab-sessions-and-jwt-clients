@@ -12,13 +12,34 @@ function NavBar({ user, setUser }) {
     });
   }
 
+  function handleDoSomethingClick() {
+    fetch("/newpost",{
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        title: "New Post Title",
+        content: "New Post Content"
+      }),
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log("server response:", data)
+    })
+    .catch((error) => {
+      console.log("Error:", error)
+    })
+  }
+
   return (
     <Wrapper>
       <Logo>
         <Link to="/">My App</Link>
       </Logo>
       <Nav>
-        <Button>
+        <Button onClick={handleDoSomethingClick}>
           Do Something
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
