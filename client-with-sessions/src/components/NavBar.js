@@ -11,18 +11,6 @@ function NavBar({ user, setUser }) {
       }
     });
   }
-  function handleViewNotes() {
-    fetch("/notes", { method: "GET" })
-    .then((r) => {
-      if (r.ok) {
-        console.log('getting notes')
-        return r.json()
-      }
-    })
-    .then(data => {
-      console.log("notes", data)
-    })
-  }
 
   return (
     <Wrapper>
@@ -30,7 +18,7 @@ function NavBar({ user, setUser }) {
         <Link to="/">My App</Link>
       </Logo>
       <Nav>
-        <Button onClick={handleViewNotes}>
+        <Button>
           Do Something
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
