@@ -44,17 +44,6 @@ class ViewUser(Resource):
         user = User.query.filter_by(id=id).first()
         return UserSchema().dump(user), 200
 
-class ViewNotes(Resource):
-    def get(self):
-        #user = User.query.filter_by(id=session.get('user_id')).first()
-        #if not user:
-        #    raise ValueError("Must be logged in to view notes")
-        
-        notes = Note.query.all()
-        notes_data = NoteSchema(many=True).dump(notes)
-        
-        return notes_data, 200
-
 class CheckSession(Resource):
     def get(self):
         user_id = session.get('user_id')
@@ -89,13 +78,16 @@ class Signup(Resource):
         db.session.commit()
         session['user_id'] = user.id
 
-        return UserSchema().dump(user), 200      
+        return UserSchema().dump(user), 200
+
+class NewPost(Resource):
+    def post(self):
+        return {}
 
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
 api.add_resource(ViewUsers, "/users")
 api.add_resource(ViewUser, "/users/<int:id>")
-api.add_resource(ViewNotes, "/notes")
 api.add_resource(CheckSession, "/check_session")
 api.add_resource(Logout, "/logout")
 api.add_resource(Signup, "/signup")
