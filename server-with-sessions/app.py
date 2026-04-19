@@ -94,6 +94,22 @@ class NewPost(Resource):
 
         return NoteSchema().dump(newNote), 201
 
+class UpdatePost(Resource):
+    def patch(self, id):
+        updatedcontent = request.get_json().get('updatedContent')
+        user_id = session.get('user_id')
+        usersNotesIDs = [note.id for note in Note.query.filter_by(user_id=user_id)]
+
+        if id not in usersNotesIDs:
+            return {'message': 'user can only modify their own note'}, 403
+        
+        note = Note.query.filter_by(id=id).first()
+        note.content = updatedcontent
+
+        db.session.commit()
+
+        return NoteSchema().dump(note), 202
+
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
 api.add_resource(ViewUsers, "/users")
@@ -102,6 +118,7 @@ api.add_resource(CheckSession, "/check_session")
 api.add_resource(Logout, "/logout")
 api.add_resource(Signup, "/signup")
 api.add_resource(NewPost, "/newpost")
+api.add_resource(UpdatePost, "/updatenotecontent/<int:id>")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

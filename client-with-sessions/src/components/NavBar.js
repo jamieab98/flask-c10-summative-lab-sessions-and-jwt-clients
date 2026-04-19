@@ -35,7 +35,7 @@ function NavBar({ user, setUser }) {
   */
 
   function handleDoSomethingClick() {
-    fetch("/changenotecontent", {
+    fetch(`/updatenotecontent/2`, {
       method: "PATCH",
       credentials: "include",
       headers: {"Content-Type": "application/json"},
