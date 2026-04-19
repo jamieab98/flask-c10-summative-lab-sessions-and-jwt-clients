@@ -136,7 +136,9 @@ class DeleteNote(Resource):
         if not note in Note.query.filter_by(user_id=user_id):
             return{"message": "cannot delete another user's note"}
         
-        
+        db.session.delete(note)
+        db.session.commit()
+
         return{}
     
 

@@ -72,6 +72,22 @@ function NavBar({ user, setUser }) {
   }
   */
   
+  function handleDoSomethingClick(){
+    console.log("deleting something")
+    fetch("/deletepost/4", {
+      method: "DELETE",
+      credentials: "include"
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
   return (
     <Wrapper>
@@ -79,7 +95,7 @@ function NavBar({ user, setUser }) {
         <Link to="/">My App</Link>
       </Logo>
       <Nav>
-        <Button /*onClick={handleDoSomethingClick}*/>
+        <Button onClick={handleDoSomethingClick}>
           Do Something
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
