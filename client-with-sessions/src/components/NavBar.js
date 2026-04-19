@@ -55,7 +55,7 @@ function NavBar({ user, setUser }) {
   }
   */
 
-  function handleDoSomethingClick() {
+  /*function handleDoSomethingClick() {
     fetch("/userpost", {
       method: "GET",
       credentials: "include"
@@ -70,6 +70,7 @@ function NavBar({ user, setUser }) {
       console.log(error)
     })
   }
+  */
 
   return (
     <Wrapper>
