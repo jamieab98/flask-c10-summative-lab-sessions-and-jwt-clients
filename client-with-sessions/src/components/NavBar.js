@@ -55,8 +55,8 @@ function NavBar({ user, setUser }) {
   }
   */
 
-  /*function handleDoSomethingClick() {
-    fetch("/userpost", {
+  function handleDoSomethingClick() {
+    fetch("/userpost?page=1&per_page=5", {
       method: "GET",
       credentials: "include"
     })
@@ -70,7 +70,7 @@ function NavBar({ user, setUser }) {
       console.log(error)
     })
   }
-  */
+  
 
   return (
     <Wrapper>
@@ -78,7 +78,7 @@ function NavBar({ user, setUser }) {
         <Link to="/">My App</Link>
       </Logo>
       <Nav>
-        <Button /*onClick={handleDoSomethingClick}*/>
+        <Button onClick={handleDoSomethingClick}>
           Do Something
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>

@@ -112,13 +112,16 @@ class UpdatePost(Resource):
 
 class ViewUsersPosts(Resource):
     def get(self):
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         if not user_id:
             return {'message': 'must be logged in to view notes'}
         
-        usersNotes = Note.query.filter_by(user_id=user_id).all()
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 100, type=int)
+        
+        usersNotes = Note.query.filter_by(user_id=user_id).paginate(page=page, per_page=per_page)
 
-        return NoteSchema(many=True).dump(usersNotes), 200
+        return NoteSchema(many=True).dump(usersNotes.items), 200
 
 
 api.add_resource(HomePage, "/")
