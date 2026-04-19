@@ -110,6 +110,17 @@ class UpdatePost(Resource):
 
         return NoteSchema().dump(note), 202
 
+class ViewUsersPosts(Resource):
+    def get(self):
+        user_id = session['user_id']
+        if not user_id:
+            return {'message': 'must be logged in to view notes'}
+        
+        usersNotes = Note.query.filter_by(user_id=user_id).all()
+
+        return NoteSchema(many=True).dump(usersNotes), 200
+
+
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
 api.add_resource(ViewUsers, "/users")
@@ -119,6 +130,7 @@ api.add_resource(Logout, "/logout")
 api.add_resource(Signup, "/signup")
 api.add_resource(NewPost, "/newpost")
 api.add_resource(UpdatePost, "/updatenotecontent/<int:id>")
+api.add_resource(ViewUsersPosts, "/userpost")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

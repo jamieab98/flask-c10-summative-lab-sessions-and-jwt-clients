@@ -54,7 +54,22 @@ function NavBar({ user, setUser }) {
     })
   }
   */
- 
+
+  function handleDoSomethingClick() {
+    fetch("/userpost", {
+      method: "GET",
+      credentials: "include"
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
   return (
     <Wrapper>
