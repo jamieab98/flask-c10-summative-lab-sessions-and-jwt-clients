@@ -123,6 +123,22 @@ class ViewUsersPosts(Resource):
 
         return NoteSchema(many=True).dump(usersNotes.items), 200
 
+class DeleteNote(Resource):
+    def delete (self, id):
+        user_id = session.get('user_id')
+        if not user_id:
+            return{"message": "must be logged in to delete a note"}
+        
+        note = Note.query.filter_by(id=id).first()
+        if not note:
+            return{"message": "the requested not does not exit"}
+        
+        if not note in Note.query.filter_by(user_id=user_id):
+            return{"message": "cannot delete another user's note"}
+        
+        
+        return{}
+    
 
 api.add_resource(HomePage, "/")
 api.add_resource(Login, "/login")
@@ -134,6 +150,7 @@ api.add_resource(Signup, "/signup")
 api.add_resource(NewPost, "/newpost")
 api.add_resource(UpdatePost, "/updatenotecontent/<int:id>")
 api.add_resource(ViewUsersPosts, "/userpost")
+api.add_resource(DeleteNote, "/deletepost/<int:id>")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
