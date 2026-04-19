@@ -33,7 +33,26 @@ function NavBar({ user, setUser }) {
     })
   }
   */
- 
+
+  function handleDoSomethingClick() {
+    fetch("/changenotecontent", {
+      method: "PATCH",
+      credentials: "include",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        updatedContent: "Updated Post Content"
+      }),
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((error) => {
+      console.log("Error:", error)
+    })
+  }
 
   return (
     <Wrapper>
