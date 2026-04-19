@@ -78,7 +78,7 @@ function NavBar({ user, setUser }) {
         <Link to="/">My App</Link>
       </Logo>
       <Nav>
-        <Button onClick={handleDoSomethingClick}>
+        <Button /*onClick={handleDoSomethingClick}*/>
           Do Something
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>

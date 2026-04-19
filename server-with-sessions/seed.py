@@ -16,7 +16,7 @@ with app.app_context():
     usernames = []
 
     i = 0
-    while i < 10:
+    while i < 5:
         username = fake.first_name()
         while username in usernames:
             username = fake.first_name()
@@ -36,7 +36,7 @@ with app.app_context():
     notes = []
 
     j = 0
-    while j < 20:
+    while j < 100:
         title = f'Title {j}'
         content = fake.paragraph()
         user_id = random.randint(1, 10)
