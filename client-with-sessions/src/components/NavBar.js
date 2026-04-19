@@ -34,7 +34,7 @@ function NavBar({ user, setUser }) {
   }
   */
 
-  function handleDoSomethingClick() {
+  /*function handleDoSomethingClick() {
     fetch(`/updatenotecontent/2`, {
       method: "PATCH",
       credentials: "include",
@@ -53,6 +53,8 @@ function NavBar({ user, setUser }) {
       console.log("Error:", error)
     })
   }
+  */
+ 
 
   return (
     <Wrapper>
